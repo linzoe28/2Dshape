@@ -40,6 +40,9 @@ public class polygon extends Application {
                       root.getChildren().add(poly);
                 }else{
                       poly.getPoints().addAll(event.getSceneX(),event.getSceneY()); 
+                      if(event.getClickCount()==2){   //兩次點擊結束，上一個圖形
+                          poly=null;
+                      }
                 }
             }
         });
