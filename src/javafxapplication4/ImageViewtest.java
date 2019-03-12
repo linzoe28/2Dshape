@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,17 +36,21 @@ public class ImageViewtest extends Application {
         imageView.setFitWidth(400);
         imageView.setX(200);
         imageView.setY(20);
-        Glow glow=new Glow(0);
-        imageView.setEffect(glow);
+        //Glow glow=new Glow(0);
+        //imageView.setEffect(glow);
+        GaussianBlur blur=new GaussianBlur(0);
+       imageView.setEffect(blur);
         
         scene.setOnScroll(new EventHandler<ScrollEvent>(){
             @Override
             public void handle(ScrollEvent event) {
-              double level=glow.getLevel()+event.getDeltaY()*0.001;
+              //double level=glow.getLevel()+event.getDeltaY()*0.001;
+              double level=blur.getRadius()+event.getDeltaY()*0.01;
               if(level<0){
                   level=0;
               }
-              glow.setLevel(level);
+              //glow.setLevel(level);
+              blur.setRadius(level);
             }
         });
         root.getChildren().add(imageView);
