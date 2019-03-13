@@ -6,24 +6,20 @@
 package javafxapplication4;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.effect.Glow;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
  *
  * @author User
  */
-public class ImageViewtest extends Application {
+public class Image_reflection extends Application {
 
     @Override
     public void start(Stage primaryStage) {
@@ -32,26 +28,27 @@ public class ImageViewtest extends Application {
         Image image = new Image("https://vignette.wikia.nocookie.net/characters/images/9/99/MarioSMBW.png/revision/latest?cb=20131224152135");
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
-        imageView.setFitWidth(400);
+        imageView.setFitWidth(250);
         imageView.setX(200);
         imageView.setY(20);
-        //Glow glow=new Glow(0);  //光暈
-        //imageView.setEffect(glow);
-        GaussianBlur blur = new GaussianBlur(0);  //清晰度
-        imageView.setEffect(blur);
 
-        scene.setOnScroll(new EventHandler<ScrollEvent>() {
-            @Override
-            public void handle(ScrollEvent event) {
-                //double level=glow.getLevel()+event.getDeltaY()*0.001;
-                double level = blur.getRadius() + event.getDeltaY() * 0.01;
-                if (level < 0) {
-                    level = 0;
-                }
-                //glow.setLevel(level);
-                blur.setRadius(level);
-            }
-        });
+       /* Reflection reflection = new Reflection();
+        reflection.setTopOpacity(1); //最上點的透明度
+        reflection.setBottomOpacity(0.5); //圖片下半張的透明度
+        reflection.setFraction(1);  //倒影比例
+        imageView.setEffect(reflection);*/
+       
+        /*SepiaTone sepiaTone =new SepiaTone(0.75); //懷舊風
+        imageView.setEffect(sepiaTone);*/
+        
+        Light.Spot spot =new Light.Spot();  //打光
+        spot.setX(200);
+        spot.setY(150);
+        spot.setZ(610);
+        spot.setColor(Color.ALICEBLUE);
+        Lighting lighting =new Lighting(spot);
+        imageView.setEffect(lighting);
+        
         root.getChildren().add(imageView);
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
