@@ -57,13 +57,14 @@ public class Image_reflection extends Application {
                 spot.setY(event.getSceneY());
             }
         });
-        scene.setOnScroll(new EventHandler<ScrollEvent>(){
+        scene.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent event) {
-               if(event.getDeltaX()<0){
-                   spot.setZ(0);
-               }
-               spot.setZ(event.getDeltaX());
+                spot.setZ(spot.getZ() + event.getDeltaY());
+                if (spot.getZ() < 0) {
+                    spot.setZ(0);
+                }
+
             }
         });
 
