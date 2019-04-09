@@ -6,15 +6,19 @@
 package javafxapplication4;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Slider;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -26,7 +30,7 @@ public class Image_reflection extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Group root = new Group();
+        VBox root = new VBox();
         Scene scene = new Scene(root, 800, 600);
         Image image = new Image("https://vignette.wikia.nocookie.net/characters/images/9/99/MarioSMBW.png/revision/latest?cb=20131224152135");
         ImageView imageView = new ImageView(image);
@@ -67,8 +71,17 @@ public class Image_reflection extends Application {
 
             }
         });
-
-        root.getChildren().add(imageView);
+        Slider slider=new Slider(0,500,0);
+        slider.setPrefWidth(400);
+        slider.setShowTickLabels(true);
+        slider.setShowTickMarks(true);
+        slider.valueProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+              spot.setZ(newValue.doubleValue());
+            }
+        });
+        root.getChildren().addAll(slider,imageView);
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();
